@@ -3,8 +3,8 @@
 source app.sh
 
 install_app() {
-    yay -Sq --noconfirm $1  > /dev/null 2>&1
     echo "Installing $1..."
+    yay -Sq --noconfirm $1  > /dev/null 2>&1
 }
 
 copy_configs() {
@@ -19,9 +19,22 @@ copy_configs() {
     fi
 }
 
+post_install() {
+    app_name=$1
+    script_file="scripts/$app_name.sh"
+
+    if [ -f "$script_file" ]; then
+        echo "Script for $app_name found! Executing $app_name.sh"
+        $script_file
+    fi
+}
+
 for app in "${APPS[@]}"; do
+    echo "======================="
     install_app "$app"
     copy_configs "$app"
+    post_install "$app"
+    echo "======================="
 done
 
 echo "Installation complete."
