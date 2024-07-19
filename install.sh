@@ -2,6 +2,15 @@
 
 source app.sh
 
+install_yay() {
+    echo "Installing yay..."
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf yay
+}
+
 install_app() {
     echo "Installing $1..."
     yay -Sq --noconfirm $1  > /dev/null 2>&1
@@ -19,6 +28,20 @@ copy_configs() {
     fi
 }
 
+pre_install() {
+    echo "Updating system..."
+    sudo pacman -Syu --noconfirm > /dev/null 2>&1
+
+    if ! command -v yay &> /dev/null
+    then
+        echo "Yay not found. Installing..."
+        install_yay
+    
+    else
+        echo "Yay found. Skipping installation."
+    fi
+}
+
 post_install() {
     app_name=$1
     script_file="scripts/$app_name.sh"
@@ -28,6 +51,10 @@ post_install() {
         $script_file
     fi
 }
+
+
+echo "Starting instalation process..."
+pre_install
 
 for app in "${APPS[@]}"; do
     echo "======================="

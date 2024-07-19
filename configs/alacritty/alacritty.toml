@@ -1,0 +1,10 @@
+import = [
+    "~/.config/alacritty/themes/themes/blood_moon.toml"
+]
+
+[window]
+opacity = 0.85
+blur = true
+
+[font]
+normal = { family = "MesloLGS Nerd Font Mono" }
