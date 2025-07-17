@@ -1,3 +1,8 @@
+if [ -f ~/.zshrc ]; then
+    echo " - .zshrc already exists, skipping zsh installation"
+    exit 0
+fi
+
 echo "Installing oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -15,4 +20,7 @@ git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZS
 
 echo " - Writing .zshrc"
 cp configs/zsh/.zshrc ~/.zshrc
+
+echo " - Instaling zoxide"
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
