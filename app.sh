@@ -1,10 +1,12 @@
 # config.sh
 
 APPS=(
+  "nvm"
+  "git"
   "kanata"
   "fzf"
   "zsh"
-  # "tmux"
+  "tmux"
   "neofetch"
   "nano"
   "lazydocker"
